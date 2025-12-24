@@ -2,23 +2,31 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import pic1 from "../resource/330490389.jpg"; // Local image import
+import pic3 from "../resource/330490222.jpg"; // Local image import
+import pic2 from "../resource/32980.jpg"; // Local image import
+import { StaticImageData } from "next/image";
 
-const slides = [
+// Define type for a slide
+type Slide = {
+  image: string | StaticImageData;
+  title: string;
+  subtitle: string;
+};
+
+const slides: Slide[] = [
   {
-    image:
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d",
+    image: pic1, // local image
     title: "Shanora Beach Hotel",
     subtitle: "Oceanfront comfort in the heart of Mirissa",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    image: pic3, // local image
     title: "Wake Up to the Ocean",
     subtitle: "Luxury rooms with breathtaking sea views",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
+    image: pic2, // local image
     title: "Relax. Explore. Enjoy.",
     subtitle: "Your perfect coastal getaway",
   },
@@ -45,7 +53,13 @@ export default function Hero() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${slides[index].image})` }}
+          style={{
+            backgroundImage: `url(${
+              typeof slides[index].image === "string"
+                ? slides[index].image
+                : slides[index].image.src
+            })`,
+          }}
         />
       </AnimatePresence>
 
